@@ -1,0 +1,28 @@
+{
+    "username_keywords": [
+      "bot",
+      "crypto",
+      "nft",
+      "airdrop",
+      "giveaway",
+      "earn",
+      "free"
+    ],
+    "content_keywords": [
+      "dm me",
+      "check dm",
+      "earn money",
+      "make money",
+      "free crypto",
+      "join now",
+      "click link",
+      "get rich"
+    ],
+    "check_interval": 5,
+    "auto_mode": false,
+    "debug": true,
+    "timeout": 10,
+    "headless": false,
+    "save_log": true,
+    "log_path": "x_bot_blocker_log.txt"
+  }
