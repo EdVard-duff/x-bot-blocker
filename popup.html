@@ -25,69 +25,10 @@
       margin-top: 10px;
       color: green;
     }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
-      border-radius: 34px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #1DA1F2;
-    }
-    input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
-    }
-    .mode-container {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    .mode-label {
-      margin-left: 10px;
-    }
   </style>
 </head>
 <body>
-  <h2>X平台自动屏蔽设置</h2>
-  
-  <div class="mode-container">
-    <label class="switch">
-      <input type="checkbox" id="autoModeToggle">
-      <span class="slider"></span>
-    </label>
-    <span class="mode-label">自动模式（无需确认直接屏蔽）</span>
-  </div>
+  <h2>X平台屏蔽设置</h2>
   
   <h3>屏蔽词列表</h3>
   <p>添加希望屏蔽的词汇，每行一个:</p>
@@ -101,7 +42,7 @@
   <hr>
   
   <h3>屏蔽统计</h3>
-  <p>已自动屏蔽账号数: <span id="blockedCount">0</span></p>
+  <p>已屏蔽账号数: <span id="blockedCount">0</span></p>
   
   <script src="popup.js"></script>
 </body>

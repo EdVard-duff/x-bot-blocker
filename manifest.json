@@ -1,25 +1,25 @@
 {
-    "manifest_version": 3,
-    "name": "X Bot Blocker",
-    "version": "1.0",
-    "description": "自动屏蔽X平台上包含特定词汇的账号",
-    "permissions": ["storage", "tabs", "scripting"],
-    "host_permissions": ["https://x.com/*"],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "images/icon16.png",
-        "48": "images/icon48.png",
-        "128": "images/icon128.png"
-      }
-    },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://x.com/*"],
-        "js": ["content.js"]
-      }
-    ]
-  }
+  "manifest_version": 3,
+  "name": "X Bot Blocker",
+  "version": "1.0",
+  "description": "屏蔽X平台上包含特定词汇的账号",
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["https://x.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -14,23 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 加载自动模式设置
-  chrome.storage.sync.get("autoMode", function (data) {
-    document.getElementById("autoModeToggle").checked = data.autoMode || false;
-  });
-
   // 保存按钮点击事件
   document.getElementById("saveButton").addEventListener("click", function () {
     const blockWordsText = document.getElementById("blockWords").value;
     const blockWords = blockWordsText
       .split("\n")
       .filter((word) => word.trim() !== "");
-    const autoMode = document.getElementById("autoModeToggle").checked;
 
     chrome.storage.sync.set(
       {
-        blockWords: blockWords,
-        autoMode: autoMode,
+        blockWords: blockWords
       },
       function () {
         const statusElement = document.getElementById("statusMessage");
@@ -41,12 +34,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
   });
-
-  // 自动模式切换事件（实时保存）
-  document
-    .getElementById("autoModeToggle")
-    .addEventListener("change", function () {
-      const autoMode = this.checked;
-      chrome.storage.sync.set({ autoMode: autoMode });
-    });
 });
