@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome扩展图标生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .canvas-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .icon-preview {
+            margin: 10px;
+            text-align: center;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        input, select, button {
+            margin: 5px;
+            padding: 8px;
+        }
+        button {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        button:hover {
+            background-color: #3367d6;
+        }
+        .download-all {
+            background-color: #0f9d58;
+            font-weight: bold;
+            margin-top: 15px;
+            padding: 12px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>X平台屏蔽插件图标生成器</h1>
+    
+    <div class="controls">
+        <h3>图标设置</h3>
+        <div>
+            <label for="backgroundColor">背景颜色:</label>
+            <input type="color" id="backgroundColor" value="#1DA1F2">
+        </div>
+        <div>
+            <label for="textColor">文字颜色:</label>
+            <input type="color" id="textColor" value="#FFFFFF">
+        </div>
+        <div>
+            <label for="iconText">图标文字:</label>
+            <input type="text" id="iconText" value="X" maxlength="1" style="width: 30px; text-align: center;">
+        </div>
+        <div>
+            <label for="iconShape">图标形状:</label>
+            <select id="iconShape">
+                <option value="circle">圆形</option>
+                <option value="square">方形</option>
+                <option value="rounded">圆角方形</option>
+            </select>
+        </div>
+        <button id="generateBtn">生成图标</button>
+    </div>
+
+    <div class="canvas-container">
+        <div class="icon-preview">
+            <h3>16x16像素</h3>
+            <canvas id="canvas16" width="16" height="16"></canvas>
+            <div>
+                <button class="download-btn" data-size="16">下载</button>
+            </div>
+        </div>
+        <div class="icon-preview">
+            <h3>48x48像素</h3>
+            <canvas id="canvas48" width="48" height="48"></canvas>
+            <div>
+                <button class="download-btn" data-size="48">下载</button>
+            </div>
+        </div>
+        <div class="icon-preview">
+            <h3>128x128像素</h3>
+            <canvas id="canvas128" width="128" height="128"></canvas>
+            <div>
+                <button class="download-btn" data-size="128">下载</button>
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <button id="downloadAllBtn" class="download-all">下载所有图标</button>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const backgroundColor = document.getElementById('backgroundColor');
+        const textColor = document.getElementById('textColor');
+        const iconText = document.getElementById('iconText');
+        const iconShape = document.getElementById('iconShape');
+        const generateBtn = document.getElementById('generateBtn');
+        const downloadAllBtn = document.getElementById('downloadAllBtn');
+        const downloadBtns = document.querySelectorAll('.download-btn');
+        
+        // 初始生成图标
+        window.onload = generateIcons;
+        
+        // 生成按钮点击事件
+        generateBtn.addEventListener('click', generateIcons);
+        
+        // 下载按钮点击事件
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const size = this.getAttribute('data-size');
+                downloadIcon(size);
+            });
+        });
+        
+        // 下载所有图标
+        downloadAllBtn.addEventListener('click', downloadAllIcons);
+        
+        // 生成所有图标
+        function generateIcons() {
+            const sizes = [16, 48, 128];
+            sizes.forEach(size => {
+                generateIcon(size);
+            });
+        }
+        
+        // 生成单个图标
+        function generateIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const ctx = canvas.getContext('2d');
+            
+            // 清除画布
+            ctx.clearRect(0, 0, size, size);
+            
+            // 设置背景
+            ctx.fillStyle = backgroundColor.value;
+            
+            // 绘制不同形状
+            const shape = iconShape.value;
+            if (shape === 'circle') {
+                ctx.beginPath();
+                ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (shape === 'square') {
+                ctx.fillRect(0, 0, size, size);
+            } else if (shape === 'rounded') {
+                const radius = size / 8;
+                ctx.beginPath();
+                ctx.moveTo(radius, 0);
+                ctx.lineTo(size - radius, 0);
+                ctx.quadraticCurveTo(size, 0, size, radius);
+                ctx.lineTo(size, size - radius);
+                ctx.quadraticCurveTo(size, size, size - radius, size);
+                ctx.lineTo(radius, size);
+                ctx.quadraticCurveTo(0, size, 0, size - radius);
+                ctx.lineTo(0, radius);
+                ctx.quadraticCurveTo(0, 0, radius, 0);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            // 添加文字
+            ctx.fillStyle = textColor.value;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // 根据尺寸调整字体大小
+            const fontSize = size * 0.6;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.fillText(iconText.value, size/2, size/2);
+        }
+        
+        // 下载单个图标
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `icon${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // 下载所有图标
+        function downloadAllIcons() {
+            const sizes = [16, 48, 128];
+            sizes.forEach(size => {
+                downloadIcon(size);
+            });
+        }
+    </script>
+</body>
+</html>
