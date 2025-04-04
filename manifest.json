@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "X Bot Blocker",
+  "name": "X平台关键词自动屏蔽器",
   "version": "1.0",
-  "description": "屏蔽X平台上包含特定词汇的账号",
+  "description": "根据用户名或评论内容中的关键词自动屏蔽X平台上的账号",
   "permissions": ["storage", "tabs", "scripting"],
   "host_permissions": ["https://x.com/*"],
   "action": {
@@ -12,6 +12,11 @@
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
   },
   "background": {
     "service_worker": "background.js"

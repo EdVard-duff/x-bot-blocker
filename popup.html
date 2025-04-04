@@ -1,49 +1,96 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-  <title>X平台自动屏蔽插件</title>
-  <style>
-    body {
-      width: 300px;
-      padding: 10px;
-      font-family: Arial, sans-serif;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      margin-bottom: 10px;
-    }
-    button {
-      background-color: #1DA1F2;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .status {
-      margin-top: 10px;
-      color: green;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>X平台关键词自动屏蔽器</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 10px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
+        resize: vertical;
+      }
+      button {
+        background-color: #1DA1F2;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0c85d0;
+      }
+      .status {
+        margin-top: 10px;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+      }
+      .notice {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #fff3cd;
+        color: #856404;
+        border-radius: 4px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .notice a {
+        color: #0c5460;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
 <body>
-  <h2>X平台屏蔽设置</h2>
-  
-  <h3>屏蔽词列表</h3>
-  <p>添加希望屏蔽的词汇，每行一个:</p>
-  <textarea id="blockWords" placeholder="例如: 垃圾广告&#10;某敏感词"></textarea>
-  
-  <div>
-    <button id="saveButton">保存设置</button>
-    <div class="status" id="statusMessage"></div>
+  <div class="container">
+    <h2>X平台关键词自动屏蔽器</h2>
+    
+    <div>
+      <label for="block-keywords">要屏蔽的关键词(每行一个关键词)：</label>
+      <textarea id="block-keywords" placeholder="例如: 各大交易所返"></textarea>
+    </div>
+    
+    <button id="save-btn">保存设置</button>
+    
+    <div>
+      <label>
+        <input type="checkbox" id="enable-auto-block" />
+        启用自动屏蔽
+      </label>
+    </div>
+    
+    <div>
+      <p>屏蔽状态：已屏蔽 <span id="blocked-count">0</span> 个账号</p>
+    </div>
+    
+    <div class="notice">
+      <p><strong>注意：</strong>当前版本可能存在误屏蔽正常用户的风险，白名单功能尚未开发。建议使用更加精确的关键词以减少误判。</p>
+      <p>如有建议或反馈，欢迎通过以下方式联系我们：</p>
+      <p>
+        <a href="https://x.com/duff4678828" target="_blank">X平台反馈</a> | 
+        <a href="https://github.com/EdVard-duff/x-bot-blocker" target="_blank">GitHub项目</a>
+      </p>
+    </div>
+
+    <div id="status-message" class="status"></div>
   </div>
-  
-  <hr>
-  
-  <h3>屏蔽统计</h3>
-  <p>已屏蔽账号数: <span id="blockedCount">0</span></p>
-  
   <script src="popup.js"></script>
 </body>
 </html>
